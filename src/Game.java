@@ -3,37 +3,25 @@ import java.util.Scanner;
 public class Game {
     Scanner scanner = new Scanner(System.in);
     Field f = new Field();
-    private int choice_number;
-    private int choice_number2;
-    Cell cell = new Cell(choice_number, choice_number2);
+    private int rowCell;
+    private int colCell;
+    Cell cell = new Cell(rowCell, colCell);
 
-    public void game() {
+    public void play() {
         int count = f.field.length * f.field.length;
-        f.field();
+        f.fillField();
+        boolean verification = true;
         while (count > 0) {
             System.out.println("put number between 1-3");
-            this.choice_number = scanner.nextInt();
+            this.rowCell = scanner.nextInt();
             System.out.println("put number between 1-3");
-            this.choice_number2 = scanner.nextInt();
-            if (f.field[this.choice_number][this.choice_number2] == State.EMPTY) {
-                f.field[this.choice_number][this.choice_number2] = State.X;
-            } else {
-                System.out.println("Choose another cell");
-                continue;
-            }
-            f.showField();
-            endTheGame();
-            count--;
-
-            if (count == 0) {
-                break;
-            }
-            System.out.println("put number between 1-3");
-            this.choice_number = scanner.nextInt();
-            System.out.println("put number between 1-3");
-            this.choice_number2 = scanner.nextInt();
-            if (f.field[this.choice_number][this.choice_number2] == State.EMPTY) {
-                f.field[this.choice_number][this.choice_number2] = State.O;
+            this.colCell = scanner.nextInt();
+            if (f.field[this.rowCell][this.colCell] == State.EMPTY && verification) {
+                f.field[this.rowCell][this.colCell] = State.X;
+                verification = false;
+            } else if (f.field[this.rowCell][this.colCell] == State.EMPTY && !verification) {
+                f.field[this.rowCell][this.colCell] = State.O;
+                verification = true;
             } else {
                 System.out.println("Choose another cell");
                 continue;
